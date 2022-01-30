@@ -2,17 +2,22 @@ package pro.sky.java.course2;
 
 public class StringListImpl implements StringList {
 
-    private int sizeArray;
-    String[] list;
+    private int lengthArray;
+    private String[] list;
+    private int size = 0;
 
-    public StringListImpl(int sizeArray) {
-        this.sizeArray = sizeArray;
-        list = new String[sizeArray];
+    public StringListImpl(int lengthArray) {
+        this.lengthArray = lengthArray;
+        list = new String[lengthArray];
     }
 
     @Override
     public String add(String item) {
-        return null;
+        if (item == null) {
+            throw new InvalidInputData();
+        }
+        list[0] = item;
+        return list[0];
     }
 
     @Override
