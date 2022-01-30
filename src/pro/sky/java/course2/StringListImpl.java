@@ -6,9 +6,13 @@ public class StringListImpl implements StringList {
     private String[] list;
     private int size = 0;
 
-    public StringListImpl(int lengthArray) {
-        this.lengthArray = lengthArray;
+    public StringListImpl() {
+        lengthArray = 10;
         list = new String[lengthArray];
+    }
+
+    public int getLengthArray() {
+        return lengthArray;
     }
 
     @Override
@@ -16,8 +20,14 @@ public class StringListImpl implements StringList {
         if (item == null) {
             throw new InvalidInputData();
         }
-        list[0] = item;
-        return list[0];
+        list[size] = item;
+        size++;
+        if (size == lengthArray) {
+            String[] timeArray = new String[(lengthArray += 10)];
+            System.arraycopy(list, 0, timeArray, 0, size);
+            list = timeArray;
+        }
+        return list[(size - 1)];
     }
 
     @Override
