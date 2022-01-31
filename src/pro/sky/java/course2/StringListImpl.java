@@ -7,7 +7,7 @@ public class StringListImpl implements StringList {
     private int size = 0;
 
     public StringListImpl() {
-        lengthArray = 10;
+        lengthArray = 6;
         list = new String[lengthArray];
     }
 
@@ -23,7 +23,7 @@ public class StringListImpl implements StringList {
         list[size] = item;
         size++;
         if (size == lengthArray) {
-            String[] timeArray = new String[(lengthArray += 10)];
+            String[] timeArray = new String[(lengthArray += 6)];
             System.arraycopy(list, 0, timeArray, 0, size);
             list = timeArray;
         }
@@ -32,16 +32,48 @@ public class StringListImpl implements StringList {
 
     @Override
     public String add(int index, String item) {
-        return item;
+        if (index < 0 || index >= size || item == null) {
+            throw new InvalidInputData();
+        }
+        String[] temporaryArray = new String[lengthArray];
+        System.arraycopy(list, index, temporaryArray, (index + 1), (size - index));
+        temporaryArray[index] = item;
+        System.arraycopy(list, 0, temporaryArray, 0, index);
+        list = temporaryArray;
+        size++;
+        if (size == lengthArray) {
+            String[] timeArray = new String[(lengthArray += 6)];
+            System.arraycopy(list, 0, timeArray, 0, size);
+            list = timeArray;
+        }
+        return list[index];
     }
 
     @Override
     public String set(int index, String item) {
-        return null;
+            if (index < 0 || index >= size || item == null) {
+                throw new InvalidInputData();
+            }
+        list[index] = item;
+        return list[index];
     }
 
     @Override
     public String remove(String item) {
+        if (item == null) {
+            throw new InvalidInputData();
+        }
+        for (int i = 0; i < size; i++) {
+            if (list[i].equals(item)) {
+                while (i < (size - 1)) {
+                    list[i] = list[(i + 1)];
+                    i++;
+                }
+                list[(size - 1)] = null;
+                size--;
+                return item;
+            }
+        }
         return null;
     }
 
@@ -92,6 +124,8 @@ public class StringListImpl implements StringList {
 
     @Override
     public String[] toArray() {
-        return new String[0];
+        String[] timeArray = new String[lengthArray];
+        System.arraycopy(list, 0, timeArray, 0, size);
+        return timeArray;
     }
 }
