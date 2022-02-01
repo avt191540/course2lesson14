@@ -4,17 +4,12 @@ import java.util.Arrays;
 
 public class StringListImpl implements StringList {
 
-    private int lengthArray;
+    private int lengthArray = 10;
     private String[] list;
     private int size = 0;
 
     public StringListImpl() {
-        lengthArray = 6;
         list = new String[lengthArray];
-    }
-
-    public int getLengthArray() {
-        return lengthArray;
     }
 
     @Override
@@ -25,7 +20,7 @@ public class StringListImpl implements StringList {
         list[size] = item;
         size++;
         if (size == lengthArray) {
-            String[] timeArray = new String[(lengthArray += 6)];
+            String[] timeArray = new String[(lengthArray += 10)];
             System.arraycopy(list, 0, timeArray, 0, size);
             list = timeArray;
         }
@@ -44,7 +39,7 @@ public class StringListImpl implements StringList {
         list = temporaryArray;
         size++;
         if (size == lengthArray) {
-            String[] timeArray = new String[(lengthArray += 6)];
+            String[] timeArray = new String[(lengthArray += 10)];
             System.arraycopy(list, 0, timeArray, 0, size);
             list = timeArray;
         }
@@ -148,17 +143,22 @@ public class StringListImpl implements StringList {
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
+        if (size == 0) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public void clear() {
-
+        lengthArray = 10;
+        size = 0;
+        list = new String[lengthArray];
     }
 
     @Override
