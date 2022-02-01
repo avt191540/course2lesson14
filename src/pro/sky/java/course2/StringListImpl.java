@@ -1,5 +1,7 @@
 package pro.sky.java.course2;
 
+import java.util.Arrays;
+
 public class StringListImpl implements StringList {
 
     private int lengthArray;
@@ -74,37 +76,74 @@ public class StringListImpl implements StringList {
                 return item;
             }
         }
-        return null;
+        throw new InvalidInputData();
     }
 
     @Override
     public String remove(int index) {
-        return null;
+        if (index < 0 || index >= size) {
+            throw new InvalidInputData();
+        }
+        String item = list[index];
+        while (index < (size - 1)) {
+            list[index] = list[(index + 1)];
+            index++;
+        }
+        list[(size - 1)] = null;
+        size--;
+        return item;
     }
 
     @Override
     public boolean contains(String item) {
+        if (item == null) {
+            throw new InvalidInputData();
+        }
+        for (int i = 0; i < size; i++) {
+            if (list[i].equals(item)) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public int indexOf(String item) {
-        return 0;
+        if (item == null) {
+            throw new InvalidInputData();
+        }
+        for (int i = 0; i < size; i++) {
+            if (list[i].equals(item)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
     public int lastIndexOf(String item) {
-        return 0;
+        if (item == null) {
+            throw new InvalidInputData();
+        }
+        for (int i = (size - 1); i >= 0; i--) {
+            if (list[i].equals(item)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
     public String get(int index) {
-        return null;
+        if (index < 0 || index >= size) {
+            throw new InvalidInputData();
+        }
+        return list[index];
     }
 
     @Override
     public boolean equals(StringList otherList) {
-        return false;
+        return Arrays.deepEquals(list, otherList.toArray());
     }
 
     @Override

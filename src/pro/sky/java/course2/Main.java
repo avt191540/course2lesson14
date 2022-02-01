@@ -12,6 +12,7 @@ public class Main {
         String s4 = "Georgievich";
         String s5 = "My friend";
         String s6 = "Best";
+        String s7 = "Man";
 
 
         StringList list = new StringListImpl();
@@ -29,8 +30,12 @@ public class Main {
         System.out.println(Arrays.toString(list.toArray()));
         System.out.println(list.set(2, s6));
         System.out.println(Arrays.toString(list.toArray()));
-        System.out.println(list.remove(s1));
+        System.out.println(list.remove(2));
         System.out.println(Arrays.toString(list.toArray()));
+        System.out.println(list.contains(s5));
+        System.out.println(list.indexOf(s3));
+        System.out.println(list.lastIndexOf(s4));
+        System.out.println(list.get(4));
 
     }
 }
