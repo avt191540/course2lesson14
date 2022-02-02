@@ -15,7 +15,7 @@ public class StringListImpl implements StringList {
     @Override
     public String add(String item) {
         if (item == null) {
-            throw new InvalidInputData();
+            throw new NullPointerException();
         }
         list[size] = item;
         size++;
@@ -29,8 +29,11 @@ public class StringListImpl implements StringList {
 
     @Override
     public String add(int index, String item) {
-        if (index < 0 || index >= size || item == null) {
+        if (index < 0 || index >= size) {
             throw new InvalidInputData();
+        }
+        if (item == null) {
+            throw new NullPointerException();
         }
         String[] temporaryArray = new String[lengthArray];
         System.arraycopy(list, index, temporaryArray, (index + 1), (size - index));
@@ -48,9 +51,12 @@ public class StringListImpl implements StringList {
 
     @Override
     public String set(int index, String item) {
-            if (index < 0 || index >= size || item == null) {
-                throw new InvalidInputData();
-            }
+        if (index < 0 || index >= size) {
+            throw new InvalidInputData();
+        }
+        if (item == null) {
+            throw new NullPointerException();
+        }
         list[index] = item;
         return list[index];
     }
@@ -58,7 +64,7 @@ public class StringListImpl implements StringList {
     @Override
     public String remove(String item) {
         if (item == null) {
-            throw new InvalidInputData();
+            throw new NullPointerException();
         }
         for (int i = 0; i < size; i++) {
             if (list[i].equals(item)) {
@@ -71,7 +77,7 @@ public class StringListImpl implements StringList {
                 return item;
             }
         }
-        throw new InvalidInputData();
+        throw new ArgumentNotFoundException();
     }
 
     @Override
@@ -92,7 +98,7 @@ public class StringListImpl implements StringList {
     @Override
     public boolean contains(String item) {
         if (item == null) {
-            throw new InvalidInputData();
+            throw new NullPointerException();
         }
         for (int i = 0; i < size; i++) {
             if (list[i].equals(item)) {
@@ -105,7 +111,7 @@ public class StringListImpl implements StringList {
     @Override
     public int indexOf(String item) {
         if (item == null) {
-            throw new InvalidInputData();
+            throw new NullPointerException();
         }
         for (int i = 0; i < size; i++) {
             if (list[i].equals(item)) {
@@ -118,7 +124,7 @@ public class StringListImpl implements StringList {
     @Override
     public int lastIndexOf(String item) {
         if (item == null) {
-            throw new InvalidInputData();
+            throw new NullPointerException();
         }
         for (int i = (size - 1); i >= 0; i--) {
             if (list[i].equals(item)) {
